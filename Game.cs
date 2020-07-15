@@ -12,13 +12,11 @@ namespace SnakeGame
 {
     public partial class Game : Form
     {
-        int horVelocity = 0;
-        int verVelocity = 0;
-        int step = 20;
 
         Area area = new Area();
         Snake snake = new Snake();
         Timer mainTimer = new Timer();
+        // Food = new food
 
         public Game()
         {
@@ -34,9 +32,11 @@ namespace SnakeGame
             mainTimer.Start();
         }
 
+        // private void GenerateFood()
+        // can call food again if it is generated on body
         private void MainTimer_Tick(object sender, EventArgs e)
         {
-
+            snake.Move();
         }
 
         private void InitializeGame()
@@ -44,13 +44,49 @@ namespace SnakeGame
             this.Height = 600;
             this.Width = 600;
 
-            this.Controls.Add(area);
+           this.Controls.Add(area);
 
             area.Top = 50;
             area.Left = 50;
-            // area.Location = new Point(100,100);
+                     // area.Location = new Point(100,100);
 
             snake.Render(this);
+            this.KeyDown += new KeyEventHandler(Game_KeyDown);
+        }
+
+        private void Game_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Right:
+                    if (snake.HorizontalVelocity != -1)
+                    {
+                        snake.HorizontalVelocity = 1;
+                    }
+                    snake.VerticalVelocity = 0;
+                    break;
+                case Keys.Left:
+                    if (snake.HorizontalVelocity != 1)
+                    {
+                        snake.HorizontalVelocity = -1;
+                    }
+                    snake.VerticalVelocity = 0;
+                    break;
+                case Keys.Down:
+                    snake.HorizontalVelocity = 0;
+                    if (snake.VerticalVelocity != -1)
+                    {
+                        snake.VerticalVelocity = 1;
+                    }
+                    break;
+                case Keys.Up:
+                    snake.HorizontalVelocity = 0;
+                    if (snake.VerticalVelocity != 1)
+                    {
+                        snake.VerticalVelocity = -1;
+                    }
+                    break;
+            }
         }
 
 

@@ -8,21 +8,19 @@ using System.Drawing;
 
 namespace SnakeGame
 {
-    class Area : PictureBox
+    class Food : PictureBox
     {
-
-        public Area()
+        public Food()
         {
-            InitializeArea();
+            InitializeFood();
         }
 
-        private void InitializeArea()
+        private void InitializeFood()
         {
-            this.BackColor = Color.Green;
-            this.Height = 400;
-            this.Width = 400;
+            this.Width = 20;
+            this.Height = 20;
+            this.BackColor = Color.Blue;
         }
-
     }
 
 }
